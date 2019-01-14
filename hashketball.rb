@@ -117,19 +117,39 @@ def game_hash
 }
 end
 
-
-def num_points_scored(name)
-  game_hash[:home][:players].each do |player_name, player_hash|
-    if name == player_name
-      return player_hash[:points]
-    end
-  end
-  game_hash[:away][:players].each do |player_name, player_hash|
-    if name == player_name
-      return player_hash[:points]
+def find_by_number(num)
+  game_hash.each do |location, team_data|
+    binding.pry
+    team_data[:players].each do |n, stats|
+      if stats[:number] == num 
+        return n
+      end
     end
   end
 end
+puts find_by_number(11)
+
+#def num_points_scored(name)
+#   game_hash[:home][:players].each do |player_name, player_hash|
+#     if name == player_name
+#       return player_hash[:points]
+#     end
+#   end
+#   game_hash[:away][:players].each do |player_name, player_hash|
+#     if name == player_name
+#       return player_hash[:points]
+#     end
+#   end 
+def num_points_scored(name)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |n, stats|
+      if name == n
+        return stats[:points]
+      end
+    end
+  end
+ end 
+
 
 
 def shoe_size(name)
